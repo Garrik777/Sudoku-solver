@@ -45,7 +45,7 @@ class SudokuSolverTestCase(unittest.TestCase):
     def test_solver(self):
         for index, problem in enumerate(self.problems):
             print(f"Testing puzzle {index+1}")
-            result = sudoku_solve.grid_inspection(problem)
+            result = sudoku_solve.puzzle_solve(problem)
             self.assertEqual(result, self.expected[index])
 
 

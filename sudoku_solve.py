@@ -13,6 +13,12 @@ def get_grid_from_string(string):
     grid.append(line)
     return grid
 
+def grid_to_line(grid):
+    line = ""
+    for row in grid:
+        r = "".join(str(x) for x in row)
+        line += r
+    return line
 
 def get_base_list():
     return [str(i) for i in range(1, 10)]
@@ -69,7 +75,6 @@ def get_small_grid_values(row, col, sudoku):
         for sm_col in range(sm_col_start, sm_col_fin):
             if sm_row == row and sm_col == col:
                 continue
-            # ls.append(sudoku[sm_row][sm_col])
 
             if int(sudoku[sm_row][sm_col]):
                 ls.extend([sudoku[sm_row][sm_col]])
@@ -102,15 +107,17 @@ def grid_inspection(sudoku):
 
                 if len(val_list) == 1:
                     sudoku[row][col] = val_list[0]
-                    pprint.pprint(f'{row}:{col}={val_list[0]}')
                     value_is_set = True
 
         if not value_is_set:
             return sudoku
 
+def puzzle_solve(input_string):
+    sudoku = get_grid_from_string(input_string)
+    out_string = grid_inspection(sudoku)
+    out_string = grid_to_line(sudoku)
+    return out_string
 
-sudoku = get_grid_from_string(sys.argv[1])
-
-pprint.pprint(sudoku)
-sudoku = grid_inspection(sudoku)
-pprint.pprint(sudoku)
+if __name__ == "__main__":
+    sudoku_str = puzzle_solve(sys.argv[1])
+    pprint.pprint(get_grid_from_string(sudoku_str))
